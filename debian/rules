@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	rm -rf stamp-* dir-* *.deb
+
+override_dh_auto_build: stamp-hll2300dlpr stamp-hll2300dcupswrapper
+
+stamp-%: %-3.2.0-1.i386.deb
+	dpkg-deb -x $< dir-$*
+	touch $@
+
+%.deb:
+	wget -O $@.tmp http://www.brother.com/pub/bsc/linux/packages/$@
+	mv $@.tmp $@

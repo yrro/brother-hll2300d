@@ -1,0 +1,27 @@
+Brother HL-L2300D drivers for Debian
+====================================
+
+After installing the package, a printer can be configured from the CUPS web
+interface, or by hand:
+
+1. Run `lpinfo -m` to identify a model for the printer
+2. Run `lpinfo -v` to identify a URL for the printer
+3. Create the printer with `lpadmin -p foo -m model -v url`
+
+How the drivers work
+--------------------
+
+1. CUPS looks for \*cupsFilter inside the PPD file, which directs it to
+   `brother_lpdwrapper_HLL2300D`.
+2. CUPS runs this filter as documented in filter(7). The filter runs
+   `brprintconflsr3` (what this does is uncertain) and then pipes the input job
+   through `filter_HLL2300D` (henceforth known as the LPD filter).
+3. The LPD filter processes the job with GhostScript, piping the output
+   through `rawtobr3`.
+
+Testing the drivers
+-------------------
+
+$ cupsfilter -p /usr/share/ppd/brother/brother-HLL2300D-cups-en.ppd -m printer/foo -e test.ps > out
+
+According to file(1), `out` will contain PJL data.

@@ -1,0 +1,15 @@
+Source: brother-hll2300d
+Maintainer: Sam Morris <sam@robots.org.uk>
+Section: text
+Priority: optional
+Build-Depends:
+ debhelper (>= 10),
+ wget,
+
+Package: printer-driver-brother-hll2300d
+Architecture: i386
+Depends:
+ ghostscript,
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Driver for Brother HL-L2300D printer
