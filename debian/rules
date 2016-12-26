@@ -1,28 +1,36 @@
 #!/usr/bin/make -f
 
 SHELL := /bin/bash
+VERSION := $(shell dpkg-parsechangelog -S version | cut -d- -f1)
 
 %:
 	dh $@
 
-override_dh_auto_clean:
-	rm -rf stamp-* dir-* *.deb
+clean::
+	dh $@
 
-override_dh_auto_build: stamp-hll2300dlpr stamp-hll2300dcupswrapper
+.PHONY: get-orig-source
+get-orig-source: brother-hll2300d_$(VERSION).orig-lpr.tar.xz brother-hll2300d_$(VERSION).orig-cupswrapper.tar.xz
 
-stamp-%: %-3.2.0-1.i386.deb
-	dpkg-deb -x $< dir-$*
-	touch $@
+brother-hll2300d_$(VERSION).orig-%.tar.xz: hll2300d%-$(VERSION)-1.i386.deb
+	rm -rf $*
+	dpkg-deb -x $< $*
+	tar Jcf $@ $*
+	rm -f $<
 
 define download =
 $2:
-	wget -O $2.tmp $1$2
-	if [[ $$$$(sha256sum "$2.tmp" | cut -d ' ' -f 1) != $3 ]]; then \
+	wget -O '$2.tmp' '$1$2'
+	if [[ $$$$(sha256sum '$2.tmp' | cut -d ' ' -f 1) != '$3' ]]; then \
 		echo 'Failed to verify downloaded file $2' >&2; \
 		exit 1; \
 	fi
-	mv $2.tmp $2
+	mv '$2.tmp' '$2'
+
+clean::
+	rm -f '$2' '$2.tmp'
+
 endef
 
-$(eval $(call download,http://www.brother.com/pub/bsc/linux/packages/,hll2300dlpr-3.2.0-1.i386.deb,9b576bcbd42aae22147d3934f8c0acd5184f31f03c7c1e97ad68c2e9f1517e24))
-$(eval $(call download,http://www.brother.com/pub/bsc/linux/packages/,hll2300dcupswrapper-3.2.0-1.i386.deb,1973b781a01c3c1777cbff19e816e48e442d891823b7454f2850d2d5edd2d4bb))
+$(eval $(call download,http://www.brother.com/pub/bsc/linux/packages/,hll2300dlpr-$(VERSION)-1.i386.deb,9b576bcbd42aae22147d3934f8c0acd5184f31f03c7c1e97ad68c2e9f1517e24))
+$(eval $(call download,http://www.brother.com/pub/bsc/linux/packages/,hll2300dcupswrapper-$(VERSION)-1.i386.deb,1973b781a01c3c1777cbff19e816e48e442d891823b7454f2850d2d5edd2d4bb))

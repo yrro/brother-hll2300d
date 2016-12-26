@@ -1,0 +1,6 @@
+Before the package can be built, you must run `debian/rules get-orig-source`;
+this will download the driver from Brother's web site, extract it into directories 
+within the source package directory, and create two upstream tarballs.
+
+If you want to build the source package, you should move these tarballs into
+the parent directory first.

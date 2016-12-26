@@ -1,3 +1,4 @@
 /debhelper-build-stamp
+/files
 /*.substvars
 /printer-driver-brother-hll2300d/

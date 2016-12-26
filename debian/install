@@ -1,5 +1,2 @@
-dir-*/opt/brother /opt
-
-dir-hll2300dcupswrapper/opt/brother /opt
-dir-hll2300dlpr/opt/brother /opt
-
+cupswrapper/opt/brother /opt
+lpr/opt/brother /opt
