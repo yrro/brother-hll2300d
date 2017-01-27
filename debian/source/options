@@ -1,1 +1,2 @@
 create-empty-orig
+extend-diff-ignore = "^README\.md$"
