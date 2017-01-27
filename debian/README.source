@@ -6,4 +6,4 @@ amd64 machine, you will have to configure your system for multiarch by running
 
 The following command will build both the source package and binary packages in one go:
 
-	dpkg-buildpackage --host-arch=i386 --hook-source='debian/rules get-orig-source && mv *.orig-*.tar.* ..'
+	dpkg-buildpackage --host-arch=i386 --hook-source='debian/rules hook-source'

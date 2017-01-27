@@ -9,6 +9,10 @@ VERSION := $(shell dpkg-parsechangelog -S version | cut -d- -f1)
 clean::
 	dh $@
 
+.PHONY: hook-source
+hook-source: get-orig-source
+	mv *.orig-*.tar.* ..
+
 .PHONY: get-orig-source
 get-orig-source: brother-hll2300d_$(VERSION).orig-lpr.tar.xz brother-hll2300d_$(VERSION).orig-cupswrapper.tar.xz
 
