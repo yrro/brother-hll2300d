@@ -1,0 +1,2 @@
+Build an arch:all package that runs the binaries via qemu-user so that the
+driver can be used on ports other than i386 and amd64.
