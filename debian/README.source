@@ -1,3 +1,12 @@
+# brother-hll2300d deprecation
+
+I've since discovered that the
+[printer-driver-brlaser](http://packages.debian.org/printer-driver-brlaser)
+project is perfectly capable of talking to the Brother HL-L2300D printer. I you
+install that rather than using this project!
+
+# Building on amd64
+
 Certain components of Brother's driver are only available in the form of
 executables compiled for i386. Therefore, in order to build the package on an
 amd64 machine, you will have to configure your system for multiarch by running
